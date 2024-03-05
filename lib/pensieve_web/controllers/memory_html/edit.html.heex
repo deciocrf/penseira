@@ -1,0 +1,7 @@
+<h1 class="text-3xl mb-2">Edit Memory</h1>
+
+<.memory_form changeset={@changeset} action={~p"/memories/#{@memory}"} />
+
+<.link navigate={~p"/memories/#{@memory}"} class="text-lg text-sky-500 flex hover:underline">
+  <.icon name="hero-arrow-left-solid" class="h-5 w-5 mr-2" /> Back to <%= @memory.title %>
+</.link>
