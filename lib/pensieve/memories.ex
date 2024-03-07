@@ -2,8 +2,17 @@ defmodule Pensieve.Memories do
   alias Pensieve.Repo
   alias Pensieve.Memories.Memory
 
+  @spec list_memories() :: [Memory]
   def list_memories, do: Repo.all(Memory)
-  def get_memory!(id), do: Repo.get!(Memory, id)
+
+  @type id :: pos_integer | binary
+  @spec fetch_memory(id) :: {:ok, %Memory{}} | {:error, atom}
+  def fetch_memory(id) do
+    case Repo.get(Memory, id) do
+      %Memory{} = memory -> { :ok, memory }
+      nil -> { :error, :not_found }
+    end
+  end
 
   def change_memory(%Memory{} = memory, attrs \\ %{}) do
     Memory.changeset(memory, attrs)
